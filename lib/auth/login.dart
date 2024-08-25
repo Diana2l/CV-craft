@@ -7,6 +7,7 @@ import 'package:jobs_link/auth/forgot_password.dart';
 import 'package:jobs_link/auth/register.dart';
 import 'package:jobs_link/screens/userpage.dart';
 
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -180,7 +181,7 @@ class _LoginState extends State<Login> {
                     AuthMethods().signInWithGoogle(context);
                   },
                   child: Image.asset(
-                    "assets/images/google.png",
+                    "assets/images/google (1).png",
                     height: 45,
                     width: 45,
                     fit: BoxFit.cover,
