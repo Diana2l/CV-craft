@@ -1,4 +1,4 @@
-package com.example.jobs_link
+package com.example.cv_craft
 
 import io.flutter.embedding.android.FlutterActivity
 
