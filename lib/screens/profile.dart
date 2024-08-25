@@ -3,9 +3,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:jobs_link/main.dart';
-import 'package:jobs_link/models/ProfileModel.dart';
-import 'package:jobs_link/screens/Build.dart';
+import 'package:cv_craft/main.dart';
+import 'package:cv_craft/models/ProfileModel.dart';
+import 'package:cv_craft/screens/Build.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {

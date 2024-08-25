@@ -2,11 +2,11 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:jobs_link/models/ClassicPage.dart';
-import 'package:jobs_link/models/creative.dart';
-import 'package:jobs_link/models/minimalist.dart';
-import 'package:jobs_link/models/modern.dart';
-import 'package:jobs_link/models/technical.dart';
+import 'package:cv_craft/models/ClassicPage.dart';
+import 'package:cv_craft/models/creative.dart';
+import 'package:cv_craft/models/minimalist.dart';
+import 'package:cv_craft/models/modern.dart';
+import 'package:cv_craft/models/technical.dart';
 
 class Templates extends StatelessWidget {
   final List<String> templates = [

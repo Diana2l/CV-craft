@@ -1,7 +1,7 @@
 // ignore_for_file: sort_child_properties_last, prefer_final_fields, prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, avoid_types_as_parameter_names
 
 import 'package:flutter/material.dart';
-import 'package:jobs_link/utility/globals.dart';
+import 'package:cv_craft/utility/globals.dart';
 
 class Favorites extends StatefulWidget {
   const Favorites({super.key});
@@ -9,8 +9,7 @@ class Favorites extends StatefulWidget {
   @override
   State<Favorites> createState() => _FavoritesState();
 
-  void addFavorite(String item) {}
-  
+ 
 }
 
 class _FavoritesState extends State<Favorites> {

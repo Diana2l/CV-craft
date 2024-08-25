@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:jobs_link/auth/login.dart';
+import 'package:cv_craft/auth/login.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});

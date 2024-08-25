@@ -1,15 +1,15 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, library_private_types_in_public_api, prefer_typing_uninitialized_variables, avoid_types_as_parameter_names, unused_import, non_constant_identifier_names, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:jobs_link/auth/login.dart';
-import 'package:jobs_link/home.dart';
-import 'package:jobs_link/screens/about.dart';
-import 'package:jobs_link/screens/favorites.dart';
-import 'package:jobs_link/screens/profile.dart';
-import 'package:jobs_link/screens/samples.dart';
-import 'package:jobs_link/screens/settings.dart';
-import 'package:jobs_link/screens/templates.dart';
-import 'package:jobs_link/screens/Build.dart';
+import 'package:cv_craft/auth/login.dart';
+import 'package:cv_craft/home.dart';
+import 'package:cv_craft/screens/about.dart';
+import 'package:cv_craft/screens/favorites.dart';
+import 'package:cv_craft/screens/profile.dart';
+import 'package:cv_craft/screens/samples.dart';
+import 'package:cv_craft/screens/settings.dart';
+import 'package:cv_craft/screens/templates.dart';
+import 'package:cv_craft/screens/Build.dart';
 
 void main() {
   runApp(Userpage());

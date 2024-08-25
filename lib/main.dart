@@ -1,18 +1,18 @@
 // ignore_for_file: prefer_const_constructors, avoid_types_as_parameter_names, use_key_in_widget_constructors, library_private_types_in_public_api, unused_import, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:jobs_link/screens/Build.dart';
-import 'package:jobs_link/auth/login.dart';
-import 'package:jobs_link/auth/register.dart';
-import 'package:jobs_link/models/ProfileModel.dart';
-import 'package:jobs_link/screens/education.dart';
-import 'package:jobs_link/screens/experience.dart';
-import 'package:jobs_link/screens/help.dart';
-import 'package:jobs_link/screens/objectives.dart';
-import 'package:jobs_link/screens/profile.dart';
-import 'package:jobs_link/screens/settings.dart';
-import 'package:jobs_link/screens/skills.dart';
-import 'package:jobs_link/screens/userpage.dart';
+import 'package:cv_craft/screens/Build.dart';
+import 'package:cv_craft/auth/login.dart';
+import 'package:cv_craft/auth/register.dart';
+import 'package:cv_craft/models/ProfileModel.dart';
+import 'package:cv_craft/screens/education.dart';
+import 'package:cv_craft/screens/experience.dart';
+import 'package:cv_craft/screens/help.dart';
+import 'package:cv_craft/screens/objectives.dart';
+import 'package:cv_craft/screens/profile.dart';
+import 'package:cv_craft/screens/settings.dart';
+import 'package:cv_craft/screens/skills.dart';
+import 'package:cv_craft/screens/userpage.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

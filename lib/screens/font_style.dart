@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jobs_link/screens/Build.dart';
+import 'package:cv_craft/screens/Build.dart';
 
 class FontStylePage extends StatefulWidget {
   final void Function(String fontSize, String headerFontSize, String fontFamily, Color selectedColor) onApply;

@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_import, prefer_final_fields, unused_field
 
 import 'package:flutter/material.dart';
-import 'package:jobs_link/screens/education.dart';
-import 'package:jobs_link/screens/experience.dart';
-import 'package:jobs_link/screens/favorites.dart';
-import 'package:jobs_link/screens/objectives.dart';
-import 'package:jobs_link/screens/samples.dart';
-import 'package:jobs_link/screens/skills.dart';
+import 'package:cv_craft/screens/education.dart';
+import 'package:cv_craft/screens/experience.dart';
+import 'package:cv_craft/screens/favorites.dart';
+import 'package:cv_craft/screens/objectives.dart';
+import 'package:cv_craft/screens/samples.dart';
+import 'package:cv_craft/screens/skills.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

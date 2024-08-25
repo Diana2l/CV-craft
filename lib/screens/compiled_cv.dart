@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-import 'package:jobs_link/screens/Build.dart';
+import 'package:cv_craft/screens/Build.dart';
 
 class CompiledCVScreen extends StatelessWidget {
   final CVData cvData;

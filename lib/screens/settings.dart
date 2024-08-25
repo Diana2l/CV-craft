@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_final_fields, unused_field, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:jobs_link/main.dart';
-import 'package:jobs_link/screens/font_style.dart';
-import 'package:jobs_link/utility/globals.dart' as globals;
+import 'package:cv_craft/main.dart';
+import 'package:cv_craft/screens/font_style.dart';
+import 'package:cv_craft/utility/globals.dart' as globals;
 
 class Settings extends StatefulWidget {
   const Settings({super.key, required this.onThemeChanged});

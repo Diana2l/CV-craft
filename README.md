@@ -1,4 +1,4 @@
-# jobs_link
+# CV_craft
 
 A new Flutter project.
 
