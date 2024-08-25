@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "jobs_link",
+            "name": "cv_craft",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "jobs_link (profile mode)",
+            "name": "cv_craft (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "jobs_link (release mode)",
+            "name": "cv_craft (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

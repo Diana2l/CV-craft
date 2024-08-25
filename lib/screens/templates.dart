@@ -1,166 +1,131 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:cv_craft/models/ClassicPage.dart';
 import 'package:cv_craft/models/creative.dart';
 import 'package:cv_craft/models/minimalist.dart';
 import 'package:cv_craft/models/modern.dart';
 import 'package:cv_craft/models/technical.dart';
+import 'package:flutter/material.dart';
 
 class Templates extends StatelessWidget {
   final List<String> templates = [
-    'Modern Professional',
-    'Creative Design',
-    'Minimalist',
-    'Classic',
-    'Technical'
+    'assets/images/Modern.png',
+    'assets/images/creative.png',
+    'assets/images/minimalist.png',
+    'assets/images/classic.png',
+    'assets/images/technical.png',
   ];
-
-  final List<String> templateImages = [
-    'assets/Modern.png', // Example image paths
-    'assets/creative.png',
-    'assets/minimalist.png',
-    'assets/classic.png',
-    'assets/technical.png'
-  ];
-  
-  get debugShowCheckedModeBanner => null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Resume Templates'),
+        title: Text('Pick A Template!'),
+        centerTitle: true,
       ),
-      body: ListView.builder(
-        itemCount: templates.length,
-        itemBuilder: (context, index) {
-          return TemplateCard(
-            templateName: templates[index],
-            templateImage: templateImages[index],
-          );
-        },
-      ),
-    );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('debugShowCheckedModeBanner', debugShowCheckedModeBanner));
-  }
-}
-
-class TemplateCard extends StatelessWidget {
-  final String templateName;
-  final String templateImage;
-
-  TemplateCard({required this.templateName, required this.templateImage});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(10.0),
-      elevation: 5.0,
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TemplateDetailPage(templateName: templateName),
-            ),
-          );
-        },
-        child: Row(
-          children: [
-            Image.asset(
-              templateImage,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    templateName,
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Tap to edit your resume with this template.',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(Icons.arrow_forward),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.builder(
+          itemCount: templates.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.75,
+          ),
+          itemBuilder: (context, index) {
+            return TemplateItem(
+              templateImage: templates[index],
+              templateName: templates[index].split('/').last.split('.').first,
+            );
+          },
         ),
       ),
     );
   }
 }
 
-class TemplateDetailPage extends StatelessWidget {
+class TemplateItem extends StatelessWidget {
+  final String templateImage;
   final String templateName;
 
-  TemplateDetailPage({required this.templateName});
+  const TemplateItem({Key? key, required this.templateImage, required this.templateName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(templateName),
-      ),
-      body: ResumeEditor(templateName: templateName),
-    );
-  }
-}
-
-class ResumeEditor extends StatelessWidget {
-  final String templateName;
-
-  ResumeEditor({required this.templateName});
-
-  @override
-  Widget build(BuildContext context) {
-    // This would be replaced by specific form fields according to the template selected
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ListView(
+    return Card(
+      elevation: 2,
+      child: Stack(
         children: [
-          Text(
-            'Edit Your $templateName Resume',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              templateImage,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
             ),
           ),
-          SizedBox(height: 20),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Full Name',
-              border: OutlineInputBorder(),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: PopupMenuButton<int>(
+              onSelected: (item) => onSelected(context, item),
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: ListTile(
+                    leading: Icon(Icons.edit),
+                    title: Text('Edit this template'),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: ListTile(
+                    leading: Icon(Icons.favorite),
+                    title: Text('Add to favorites'),
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 10),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          // Add more fields as necessary
-          // Save or Export button can be added at the bottom
         ],
       ),
     );
+  }
+
+  void onSelected(BuildContext context, int item) {
+    switch (item) {
+      case 0:
+        // Navigate to the respective template page based on the template name
+        if (templateName == 'Modern') {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Modern(),
+          ));
+        } else if (templateName == 'creative') {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Creative(),
+          ));
+        } 
+        if (templateName == 'minimalist') {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Minimalist(),
+          ));
+        } else if (templateName == 'classic') {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ClassicPage(),
+          ));
+        } 
+        if (templateName == 'technical') {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Technical(),
+          ));
+        } 
+        // Add more else if cases for other templates as needed
+        break;
+      case 1:
+        // Handle add to favorites
+        print('Add to favorites');
+        break;
+    }
   }
 }

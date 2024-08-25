@@ -5,8 +5,12 @@ import 'package:cv_craft/screens/Build.dart';
 
 class CompiledCVScreen extends StatelessWidget {
   final CVData cvData;
+  
+  var body;
 
-  CompiledCVScreen({required this.cvData});
+  CompiledCVScreen({required this.cvData, required String objectives});
+  
+  get _displayController => null;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +23,24 @@ class CompiledCVScreen extends StatelessWidget {
           _buildSection('Experience', cvData.experience.join('\n')),
           _buildSection('Education', cvData.education.join('\n')),
           _buildSection('Skills', cvData.skills.join(', ')),
-        ],
+        
+          Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: TextField(
+          controller: _displayController,
+          maxLines: null,
+          readOnly: true, 
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            labelText: 'Your objectives',
+          ),
+        ),
       ),
+        ]
+      ),
+      
     );
   }
 

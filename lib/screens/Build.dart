@@ -77,7 +77,7 @@ class _BuildState extends State<Build> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>CompiledCVScreen(cvData: _cvData)),
+                  MaterialPageRoute(builder: (context) =>CompiledCVScreen(cvData: _cvData, objectives: '',)),
                 );
               },
               child: Text('Compile CV'),
