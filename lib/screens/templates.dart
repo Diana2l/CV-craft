@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_typing_uninitialized_variables, must_be_immutable, unused_field, unused_import
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cv_craft/models/ClassicPage.dart';
@@ -17,15 +15,29 @@ class Templates extends StatelessWidget {
     'Technical'
   ];
 
-  var debugShowCheckedModeBanner;
+  final List<String> templateImages = [
+    'assets/Modern.png', // Example image paths
+    'assets/creative.png',
+    'assets/minimalist.png',
+    'assets/classic.png',
+    'assets/technical.png'
+  ];
+  
+  get debugShowCheckedModeBanner => null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Resume Templates'),
+      ),
       body: ListView.builder(
         itemCount: templates.length,
         itemBuilder: (context, index) {
-          return TemplateCard(templateName: templates[index]);
+          return TemplateCard(
+            templateName: templates[index],
+            templateImage: templateImages[index],
+          );
         },
       ),
     );
@@ -40,24 +52,16 @@ class Templates extends StatelessWidget {
 
 class TemplateCard extends StatelessWidget {
   final String templateName;
+  final String templateImage;
 
-  TemplateCard({required this.templateName});
+  TemplateCard({required this.templateName, required this.templateImage});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(10.0),
       elevation: 5.0,
-      child: ListTile(
-        contentPadding: EdgeInsets.all(15.0),
-        title: Text(
-          templateName,
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        trailing: Icon(Icons.arrow_forward),
+      child: InkWell(
         onTap: () {
           Navigator.push(
             context,
@@ -66,6 +70,39 @@ class TemplateCard extends StatelessWidget {
             ),
           );
         },
+        child: Row(
+          children: [
+            Image.asset(
+              templateImage,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    templateName,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Tap to edit your resume with this template.',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward),
+          ],
+        ),
       ),
     );
   }
@@ -78,32 +115,52 @@ class TemplateDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (templateName) {
-      case 'Modern Professional':
-        return Modern();
-      case 'Creative Design':
-        return Creative();
-      case 'Minimalist':
-        return Minimalist();
-      case 'Classic':
-        return ClassicPage();
-      case 'Technical':
-        return Technical();
-      default:
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(templateName),
-          ),
-          body: Center(
-            child: Text(
-              'Details for $templateName template.',
-              style: TextStyle(fontSize: 24.0),
-            ),
-          ),
-        );
-    }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(templateName),
+      ),
+      body: ResumeEditor(templateName: templateName),
+    );
   }
 }
 
+class ResumeEditor extends StatelessWidget {
+  final String templateName;
 
-  
+  ResumeEditor({required this.templateName});
+
+  @override
+  Widget build(BuildContext context) {
+    // This would be replaced by specific form fields according to the template selected
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListView(
+        children: [
+          Text(
+            'Edit Your $templateName Resume',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Full Name',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 10),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          // Add more fields as necessary
+          // Save or Export button can be added at the bottom
+        ],
+      ),
+    );
+  }
+}
