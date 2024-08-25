@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, prefer_final_fields, prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, avoid_types_as_parameter_names
+// ignore_for_file: sort_child_properties_last, prefer_final_fields, prefer_const_constructors, non_constant_identifier_names, prefer_typing_uninitialized_variables, avoid_types_as_parameter_names, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:cv_craft/utility/globals.dart';

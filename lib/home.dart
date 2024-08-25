@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import, prefer_final_fields, unused_field
+// ignore_for_file: prefer_const_constructors, unnecessary_import, prefer_final_fields, unused_field, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:cv_craft/screens/education.dart';
