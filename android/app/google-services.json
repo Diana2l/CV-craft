@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "954438484545",
-    "project_id": "cvcraft-b31c3",
-    "storage_bucket": "cvcraft-b31c3.appspot.com"
+    "project_number": "683112036706",
+    "project_id": "cvcraft-98508",
+    "storage_bucket": "cvcraft-98508.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:954438484545:android:eedada4310e92758927cc0",
+        "mobilesdk_app_id": "1:683112036706:android:15cc89ca2273491c19143b",
         "android_client_info": {
           "package_name": "com.example.cv_craft"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "683112036706-lv41h0k72u9rebj0o6rnm28pnq7upjjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCoZFGfFtP2dwmmAxEyMteCXSmQwG_vsNs"
+          "current_key": "AIzaSyCsXjZYkHKavQp-jWACArsoHkACSJr7hSo"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683112036706-lv41h0k72u9rebj0o6rnm28pnq7upjjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

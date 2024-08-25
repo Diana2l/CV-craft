@@ -41,46 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAHOG3qkZO9XAX-w9Nq6TBd-mSqr1rGc0o',
-    appId: '1:954438484545:web:e4e3a808f4564191927cc0',
-    messagingSenderId: '954438484545',
-    projectId: 'cvcraft-b31c3',
-    authDomain: 'cvcraft-b31c3.firebaseapp.com',
-    storageBucket: 'cvcraft-b31c3.appspot.com',
+    apiKey: 'AIzaSyDavdKsKBYT9y1qnI_hLB37cmqco-nAykU',
+    appId: '1:683112036706:web:8224cea748e4997719143b',
+    messagingSenderId: '683112036706',
+    projectId: 'cvcraft-98508',
+    authDomain: 'cvcraft-98508.firebaseapp.com',
+    storageBucket: 'cvcraft-98508.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCoZFGfFtP2dwmmAxEyMteCXSmQwG_vsNs',
-    appId: '1:954438484545:android:eedada4310e92758927cc0',
-    messagingSenderId: '954438484545',
-    projectId: 'cvcraft-b31c3',
-    storageBucket: 'cvcraft-b31c3.appspot.com',
+    apiKey: 'AIzaSyCsXjZYkHKavQp-jWACArsoHkACSJr7hSo',
+    appId: '1:683112036706:android:15cc89ca2273491c19143b',
+    messagingSenderId: '683112036706',
+    projectId: 'cvcraft-98508',
+    storageBucket: 'cvcraft-98508.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBBtDkaiQ6u5Y1J7FB2Jc62K5xpey0hk_4',
-    appId: '1:954438484545:ios:0e7eca573c38464a927cc0',
-    messagingSenderId: '954438484545',
-    projectId: 'cvcraft-b31c3',
-    storageBucket: 'cvcraft-b31c3.appspot.com',
+    apiKey: 'AIzaSyCMjJ1P0xDQRegjpPRQiJjKz1lRcF4BF1E',
+    appId: '1:683112036706:ios:44b631ebd625ab2c19143b',
+    messagingSenderId: '683112036706',
+    projectId: 'cvcraft-98508',
+    storageBucket: 'cvcraft-98508.appspot.com',
+    iosClientId: '683112036706-19pioovk5d6momc42eku31j96d9jntkj.apps.googleusercontent.com',
     iosBundleId: 'com.example.jobsLink',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBBtDkaiQ6u5Y1J7FB2Jc62K5xpey0hk_4',
-    appId: '1:954438484545:ios:0e7eca573c38464a927cc0',
-    messagingSenderId: '954438484545',
-    projectId: 'cvcraft-b31c3',
-    storageBucket: 'cvcraft-b31c3.appspot.com',
+    apiKey: 'AIzaSyCMjJ1P0xDQRegjpPRQiJjKz1lRcF4BF1E',
+    appId: '1:683112036706:ios:44b631ebd625ab2c19143b',
+    messagingSenderId: '683112036706',
+    projectId: 'cvcraft-98508',
+    storageBucket: 'cvcraft-98508.appspot.com',
+    iosClientId: '683112036706-19pioovk5d6momc42eku31j96d9jntkj.apps.googleusercontent.com',
     iosBundleId: 'com.example.jobsLink',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAHOG3qkZO9XAX-w9Nq6TBd-mSqr1rGc0o',
-    appId: '1:954438484545:web:53fe518981c3a0b6927cc0',
-    messagingSenderId: '954438484545',
-    projectId: 'cvcraft-b31c3',
-    authDomain: 'cvcraft-b31c3.firebaseapp.com',
-    storageBucket: 'cvcraft-b31c3.appspot.com',
+    apiKey: 'AIzaSyDavdKsKBYT9y1qnI_hLB37cmqco-nAykU',
+    appId: '1:683112036706:web:a1ca8c622320ab7f19143b',
+    messagingSenderId: '683112036706',
+    projectId: 'cvcraft-98508',
+    authDomain: 'cvcraft-98508.firebaseapp.com',
+    storageBucket: 'cvcraft-98508.appspot.com',
   );
 }
