@@ -1,0 +1,172 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_import, prefer_final_fields, unused_field
+
+import 'package:flutter/material.dart';
+import 'package:jobs_link/screens/education.dart';
+import 'package:jobs_link/screens/experience.dart';
+import 'package:jobs_link/screens/favorites.dart';
+import 'package:jobs_link/screens/objectives.dart';
+import 'package:jobs_link/screens/samples.dart';
+import 'package:jobs_link/screens/skills.dart';
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  String _item = 'Item 1';
+  final Favorites _favorites = Favorites();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            childAspectRatio: 2 / 2,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Objectives();
+                    },
+                  );
+                },
+                child: _buildGridItem(Icons.list, 'Objectives'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/personal');
+                },
+                child: _buildGridItem(Icons.person, 'Personal'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Education();
+                    },
+                  );
+                },
+                child: _buildGridItem(Icons.book_sharp, 'Education'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Experience();
+                    },
+                  );
+                },
+                child: _buildGridItem(Icons.cases_rounded, 'Experience'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Skills();
+                    },
+                  );
+                },
+                child: _buildGridItem(Icons.wallet_giftcard_sharp, 'Skills'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/help');
+                },
+                child: _buildGridItem(Icons.help, 'Help'),
+              ),
+            ],
+          ),
+          _buildSlider(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGridItem(IconData icon, String text) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border(
+          bottom: BorderSide(color: Colors.green, width: 2),
+          top: BorderSide(color: Colors.green, width: 2),
+          left: BorderSide(color: Colors.green, width: 2),
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 20, color: Colors.black),
+            Text(
+              text,
+              style: TextStyle(fontSize: 14, color: Colors.black),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSlider() {
+    return Flexible(
+      child: Stack(
+        children: [
+          PageView(
+            children: [
+              _buildSlide('Slide 1', 'assets/images/City.jpeg'),
+              _buildSlide('Slide 2', 'assets/images/City.jpeg'),
+              _buildSlide('Slide 3', 'assets/images/City.jpeg'),
+            ],
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: GestureDetector(
+              onTap: () async {
+                await Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return Favorites();
+                  }),
+                );
+              },
+              child: Icon(Icons.favorite, size: 30, color: Colors.white,),
+            
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSlide(String text, String imagePath) {
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(imagePath, width: double.infinity, fit: BoxFit.cover),
+            Text(
+              text,
+              style: TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
