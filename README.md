@@ -1,4 +1,4 @@
-# CV_craft
+# cv_craft
 
 A new Flutter project.
 

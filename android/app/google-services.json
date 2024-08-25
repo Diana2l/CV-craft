@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "756567732277",
-    "project_id": "resume-builder-e64b2",
-    "storage_bucket": "resume-builder-e64b2.appspot.com"
+    "project_number": "954438484545",
+    "project_id": "cvcraft-b31c3",
+    "storage_bucket": "cvcraft-b31c3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:756567732277:android:c4bfbf83350e168b0ec17c",
+        "mobilesdk_app_id": "1:954438484545:android:eedada4310e92758927cc0",
         "android_client_info": {
           "package_name": "com.example.cv_craft"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAqy6w76fWjkxTBdi1pR1l9rgg5nl-mI-A"
+          "current_key": "AIzaSyCoZFGfFtP2dwmmAxEyMteCXSmQwG_vsNs"
         }
       ],
       "services": {

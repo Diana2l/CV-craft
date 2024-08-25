@@ -41,46 +41,46 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBqKe_8d-CBWIY0m6S8gzoLjY5DT01jZWc',
-    appId: '1:756567732277:web:ff624103d7effec70ec17c',
-    messagingSenderId: '756567732277',
-    projectId: 'resume-builder-e64b2',
-    authDomain: 'resume-builder-e64b2.firebaseapp.com',
-    storageBucket: 'resume-builder-e64b2.appspot.com',
+    apiKey: 'AIzaSyAHOG3qkZO9XAX-w9Nq6TBd-mSqr1rGc0o',
+    appId: '1:954438484545:web:e4e3a808f4564191927cc0',
+    messagingSenderId: '954438484545',
+    projectId: 'cvcraft-b31c3',
+    authDomain: 'cvcraft-b31c3.firebaseapp.com',
+    storageBucket: 'cvcraft-b31c3.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAqy6w76fWjkxTBdi1pR1l9rgg5nl-mI-A',
-    appId: '1:756567732277:android:c4bfbf83350e168b0ec17c',
-    messagingSenderId: '756567732277',
-    projectId: 'resume-builder-e64b2',
-    storageBucket: 'resume-builder-e64b2.appspot.com',
+    apiKey: 'AIzaSyCoZFGfFtP2dwmmAxEyMteCXSmQwG_vsNs',
+    appId: '1:954438484545:android:eedada4310e92758927cc0',
+    messagingSenderId: '954438484545',
+    projectId: 'cvcraft-b31c3',
+    storageBucket: 'cvcraft-b31c3.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC4EAEPrJvaDXvhvd3hC6dAFbphD-jSLNM',
-    appId: '1:756567732277:ios:7af092a0cfddf9ec0ec17c',
-    messagingSenderId: '756567732277',
-    projectId: 'resume-builder-e64b2',
-    storageBucket: 'resume-builder-e64b2.appspot.com',
+    apiKey: 'AIzaSyBBtDkaiQ6u5Y1J7FB2Jc62K5xpey0hk_4',
+    appId: '1:954438484545:ios:0e7eca573c38464a927cc0',
+    messagingSenderId: '954438484545',
+    projectId: 'cvcraft-b31c3',
+    storageBucket: 'cvcraft-b31c3.appspot.com',
     iosBundleId: 'com.example.jobsLink',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC4EAEPrJvaDXvhvd3hC6dAFbphD-jSLNM',
-    appId: '1:756567732277:ios:7af092a0cfddf9ec0ec17c',
-    messagingSenderId: '756567732277',
-    projectId: 'resume-builder-e64b2',
-    storageBucket: 'resume-builder-e64b2.appspot.com',
+    apiKey: 'AIzaSyBBtDkaiQ6u5Y1J7FB2Jc62K5xpey0hk_4',
+    appId: '1:954438484545:ios:0e7eca573c38464a927cc0',
+    messagingSenderId: '954438484545',
+    projectId: 'cvcraft-b31c3',
+    storageBucket: 'cvcraft-b31c3.appspot.com',
     iosBundleId: 'com.example.jobsLink',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBqKe_8d-CBWIY0m6S8gzoLjY5DT01jZWc',
-    appId: '1:756567732277:web:40cac383f0decf0c0ec17c',
-    messagingSenderId: '756567732277',
-    projectId: 'resume-builder-e64b2',
-    authDomain: 'resume-builder-e64b2.firebaseapp.com',
-    storageBucket: 'resume-builder-e64b2.appspot.com',
+    apiKey: 'AIzaSyAHOG3qkZO9XAX-w9Nq6TBd-mSqr1rGc0o',
+    appId: '1:954438484545:web:53fe518981c3a0b6927cc0',
+    messagingSenderId: '954438484545',
+    projectId: 'cvcraft-b31c3',
+    authDomain: 'cvcraft-b31c3.firebaseapp.com',
+    storageBucket: 'cvcraft-b31c3.appspot.com',
   );
 }
