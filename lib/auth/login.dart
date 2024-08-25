@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jobs_link/auth/forgot_password.dart';
 import 'package:jobs_link/auth/register.dart';
 import 'package:jobs_link/screens/userpage.dart';
 
@@ -14,122 +15,228 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
- 
- TextEditingController emailController = TextEditingController();
- TextEditingController passwordController = TextEditingController();
+  String email = "", password = "";
 
-bool _obscureText = true;
+  TextEditingController mailcontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
 
-Future<void> login() async {
+  final _formkey = GlobalKey<FormState>();
+
+  userLogin() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Login success!!!"),
-          backgroundColor: Colors.green));
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Userpage()));
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Userpage()));
     } on FirebaseAuthException catch (e) {
-          if (e.code == 'user-not-found' ){
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("account is non-existent!!!"),
-              backgroundColor: Colors.red));
-          } else if (e.code == 'wrong password'){
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("inaccurate password"),
-              backgroundColor: Colors.red));
-          } else{
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Error: ${e.message ?? 'An unknown error occurred'}'),
-              backgroundColor: Colors.red));
-          }
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "No User Found for that Email",
+              style: TextStyle(fontSize: 18.0),
+            )));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "Wrong Password Provided by User",
+              style: TextStyle(fontSize: 18.0),
+            )));
+      }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[100],
-      appBar: AppBar(
-        backgroundColor: Colors.blue[100],
-        centerTitle: true,
-        title:Text("Login"),
-        
-      ),
-      body:Container(
+      backgroundColor: Colors.white,
+      body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-         
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextField(
-              controller: emailController,
-                          decoration: InputDecoration(
-               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey)
+            Container(
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  "images/car.PNG",
+                  fit: BoxFit.cover,
+                )),
+            SizedBox(
+              height: 30.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFedf0f8),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter E-mail';
+                          }
+                          return null;
+                        },
+                        controller: mailcontroller,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Email",
+                            hintStyle: TextStyle(
+                                color: Color(0xFFb2b7bf), fontSize: 18.0)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFedf0f8),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: TextFormField(
+                        controller: passwordcontroller,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Password';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Password",
+                            hintStyle: TextStyle(
+                                color: Color(0xFFb2b7bf), fontSize: 18.0)),
+                   obscureText: true,   ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        if(_formkey.currentState!.validate()){
+                          setState(() {
+                            email= mailcontroller.text;
+                            password=passwordcontroller.text;
+                          });
+                        }
+                        userLogin();
+                      },
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 13.0, horizontal: 30.0),
+                          decoration: BoxDecoration(
+                              color: Color(0xFF273671),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Center(
+                              child: Text(
+                            "Sign In",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.w500),
+                          ))),
+                    ),
+                  ],
                 ),
-                prefixIcon: Icon(Icons.email),
-                labelText: "Email",
               ),
             ),
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextField(
-              controller: passwordController,
-              obscureText:_obscureText,
-                          decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey)
-                ),
-                prefixIcon: Icon(Icons.lock_person_outlined),
-                suffixIcon:IconButton(
-                 icon:Icon(_obscureText? Icons.visibility_off : Icons.visibility),
-                 onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                    });
-                    }
-                ),
-                labelText: "Password",
-              ),
+            SizedBox(
+              height: 20.0,
             ),
-          ),
-       
-          SizedBox(height: 10),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 50,vertical: 20),),
-          ElevatedButton(
-            
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(Colors.white),
-            
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPassword()));
+              },
+              child: Text("Forgot Password?",
+                  style: TextStyle(
+                      color: Color(0xFF8c8e98),
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w500)),
             ),
-            child: Text('Login'),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context)=>Userpage()),
-                );
-             
-            }),
-            
-          new GestureDetector(
-   onTap: () {
-    Navigator.push(context, MaterialPageRoute(builder:(context)=>Register()),
+            SizedBox(
+              height: 40.0,
+            ),
+            Text(
+              "or Login with",
+              style: TextStyle(
+                  color: Color(0xFF273671),
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 30.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    AuthMethods().signInWithGoogle(context);
+                  },
+                  child: Image.asset(
+                    "assets/images/google.png",
+                    height: 45,
+                    width: 45,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(
+                  width: 30.0,
+                ),
+                GestureDetector(
+                  onTap: (){
+                    AuthMethods().signInWithApple();
+                  },
+                  child: Image.asset(
+                    "assets/images/apple1.png",
+                    height: 50,
+                    width: 50,
+                    fit: BoxFit.cover,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 40.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Don't have an account?",
+                    style: TextStyle(
+                        color: Color(0xFF8c8e98),
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500)),
+                SizedBox(
+                  width: 5.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Register()));
+                  },
+                  child: Text(
+                    "SignUp",
+                    style: TextStyle(
+                        color: Color(0xFF273671),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
-  },
-  child: new Text("Don't have an account?",
-  style:TextStyle(decoration: TextDecoration.underline),
-  ),
-  
-)
-      
-           
-        ],),
-        )
-     
-  );
-
+  }
 }
+
+AuthMethods() {
 }
