@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 TextEditingController _controller = TextEditingController();
 
@@ -36,10 +37,14 @@ class _ObjectivesState extends State<Objectives> {
       ),
       actions: [
         TextButton(
+          style: ButtonStyle(
+            backgroundColor:WidgetStatePropertyAll(Colors.green)
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('OK'),
+          child: Text('Save'),
+          
         ),
       ],
     );

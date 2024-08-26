@@ -7,6 +7,7 @@ import 'package:cv_craft/screens/favorites.dart';
 import 'package:cv_craft/screens/objectives.dart';
 import 'package:cv_craft/screens/samples.dart';
 import 'package:cv_craft/screens/skills.dart';
+import 'package:flutter/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,14 +17,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String _item = 'Item 1';
-  final Favorites _favorites = Favorites();
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
+  return Scaffold(
+  body: Column(
+   children: [
           GridView.count(
             shrinkWrap: true,
             crossAxisCount: 3,
@@ -87,6 +86,23 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
+          Align(
+            alignment: Alignment.topRight,
+            child :GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/templates');
+              },
+             child: Text(
+            'See All',
+            style: TextStyle(
+              fontSize: 18, 
+              color: Colors.blue,
+              decoration: TextDecoration.underline
+              ),
+          ),
+            )
+          ),
+        
           _buildSlider(),
         ],
       ),
@@ -126,45 +142,32 @@ class _HomeState extends State<Home> {
         children: [
           PageView(
             children: [
-              _buildSlide('Slide 1', 'assets/images/City.jpeg'),
-              _buildSlide('Slide 2', 'assets/images/City.jpeg'),
-              _buildSlide('Slide 3', 'assets/images/City.jpeg'),
+              _buildSlide('Slide 1', 'assets/images/classic.png'),
+              _buildSlide('Slide 2', 'assets/images/creative.png'),
+              _buildSlide('Slide 3', 'assets/images/technical.png'),
             ],
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: GestureDetector(
-              onTap: () async {
-                await Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return Favorites();
-                  }),
-                );
-              },
-              child: Icon(Icons.favorite, size: 30, color: Colors.white,),
-            
-            ),
-          ),
+          
         ],
       ),
     );
   }
 
   Widget _buildSlide(String text, String imagePath) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(imagePath, width: double.infinity, fit: BoxFit.cover),
-            Text(
-              text,
-              style: TextStyle(fontSize: 24, color: Colors.white),
-            ),
-          ],
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(imagePath, width: double.infinity, fit: BoxFit.cover),
+              Text(
+                text,
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -143,7 +143,7 @@ class _UserpageState extends State<Userpage> {
 ),
         body:_pages[_selectedIndex], 
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.tealAccent,
+          backgroundColor: Colors.teal,
           items: _bottomNavBarItems,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,

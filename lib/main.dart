@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_types_as_parameter_names, use_key_in_widget_constructors, library_private_types_in_public_api, unused_import, avoid_print
 
+import 'package:cv_craft/screens/templates.dart';
 import 'package:flutter/material.dart';
 import 'package:cv_craft/screens/Build.dart';
 import 'package:cv_craft/auth/login.dart';
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
         '/experience': (context) => Experience(),
         '/skills': (context) => Skills(),
         '/help': (context) => Help(),
+        '/templates':(context) => Templates(),
       },
     );
   }
