@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_import, prefer_const_constructors, avoid_unnecessary_containers, unnecessary_new, sort_child_properties_last, depend_on_referenced_packages
 
+import 'package:cv_craft/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,6 +15,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -21,7 +25,7 @@ class _LoginState extends State<Login> {
 
   Future<void> login() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -50,34 +54,35 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Future<void> _signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        return;
-      }
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Login success!!!"),
-        backgroundColor: Colors.green,
-      ));
-      Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Userpage()));
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Failed to sign in with Google: ${e.toString()}"),
-        backgroundColor: Colors.red,
-      ));
+ Future<void> _signInWithGoogle() async {
+  try {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      return;
     }
+
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    await _auth.signInWithCredential(credential);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Login success!!!"),
+      backgroundColor: Colors.green,
+    ));
+    Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => Userpage()));
+  } catch (e) {
+    print('Error signing in with Google: $e');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Failed to sign in with Google: $e"),
+      backgroundColor: Colors.red,
+    ));
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +137,8 @@ class _LoginState extends State<Login> {
               SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.blue, 
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -144,7 +150,8 @@ class _LoginState extends State<Login> {
               SizedBox(height: 20),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.teal, 
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.teal,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

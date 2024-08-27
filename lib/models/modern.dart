@@ -22,9 +22,6 @@ class Modern extends StatefulWidget {
 class _ModernState extends State<Modern> {
   TextEditingController nameController = TextEditingController(text: 'Frederik Trujillo');
   TextEditingController jobTitleController = TextEditingController(text: 'Landscape Architect');
-  
-  // Add more controllers for other fields as needed
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

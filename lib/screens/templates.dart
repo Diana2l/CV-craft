@@ -96,7 +96,6 @@ class TemplateItem extends StatelessWidget {
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0:
-        // Navigate to the respective template page based on the template name
         if (templateName == 'Modern') {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => Modern(),
@@ -120,10 +119,8 @@ class TemplateItem extends StatelessWidget {
             builder: (context) => Technical(),
           ));
         } 
-        // Add more else if cases for other templates as needed
         break;
       case 1:
-        // Handle add to favorites
         print('Add to favorites');
         break;
     }

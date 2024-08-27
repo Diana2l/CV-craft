@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, avoid_print, prefer_const_constructors, sort_child_properties_last, prefer_const_constructors_in_immutables, library_private_types_in_public_api, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,12 +74,12 @@ Widget build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _fontSize = '16 px';
-                  _headerFontSize = '24 px';
-                  _fontFamily = 'OpenSans';
-                  _selectedColor = Colors.red;
+            onPressed: () {
+            setState(() {
+           _fontSize = '16 px';
+           _headerFontSize = '24 px';
+           _fontFamily = 'OpenSans';
+           _selectedColor = Colors.red;
                 });
               },
               child: Text('Cancel', style: TextStyle(fontFamily: _fontFamily)),
@@ -87,6 +87,7 @@ Widget build(BuildContext context) {
             ),
             ElevatedButton(
               onPressed: () {
+                setState(() {
                 print('Font Size: $_fontSize');
                 print('Header Font Size: $_headerFontSize');
                 print('Font Family: $_fontFamily');
@@ -96,6 +97,8 @@ Widget build(BuildContext context) {
                   context,
                   MaterialPageRoute(builder: (context) => Build()),
                 );
+              }
+              );
               },
               child: Text('Apply', style: TextStyle(fontFamily: _fontFamily)),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
@@ -129,7 +132,7 @@ Widget build(BuildContext context) {
               value: value,
               child: Text(
                 value,
-                style: TextStyle(fontFamily: _fontFamily), // Apply font to dropdown items
+                style: TextStyle(fontFamily: _fontFamily), 
               ),
             );
           }).toList(),

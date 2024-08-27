@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "683112036706-lv41h0k72u9rebj0o6rnm28pnq7upjjb.apps.googleusercontent.com",
+          "client_id": "683112036706-jkejkh5is11onl5fm7688v23da19f3b1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +27,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "683112036706-lv41h0k72u9rebj0o6rnm28pnq7upjjb.apps.googleusercontent.com",
+              "client_id": "683112036706-jkejkh5is11onl5fm7688v23da19f3b1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "683112036706-19pioovk5d6momc42eku31j96d9jntkj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jobsLink"
+              }
             }
           ]
         }
