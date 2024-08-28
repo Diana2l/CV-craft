@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cv_craft/auth/register.dart';
 import 'package:cv_craft/screens/userpage.dart';
-import 'package:cv_craft/auth/forgot_password.dart'; 
+import 'package:cv_craft/auth/forgot_password.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -100,7 +100,11 @@ class _LoginState extends State<Login> {
               SizedBox(height: 50),
               Text(
                 "Welcome Back!",
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.teal[700]),
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal[700],
+                ),
               ),
               SizedBox(height: 30),
               TextField(
@@ -162,7 +166,7 @@ class _LoginState extends State<Login> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.teal[700],
+                  backgroundColor: Colors.teal[400],
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -174,8 +178,8 @@ class _LoginState extends State<Login> {
               SizedBox(height: 15),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.red[400],
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -186,23 +190,30 @@ class _LoginState extends State<Login> {
                 onPressed: _signInWithGoogle,
               ),
               SizedBox(height: 25),
-              Text(
-                'Don\'t have an account?',
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Register()),
-                  );
-                },
-                child: Text(
-                  "Sign Up",
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: Colors.teal[700],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don\'t have an account?',
+                    style: TextStyle(color: Colors.teal[700]),
                   ),
-                ),
+                  SizedBox(width: 5),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Register()),
+                      );
+                    },
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Colors.teal[700],
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 50),
             ],

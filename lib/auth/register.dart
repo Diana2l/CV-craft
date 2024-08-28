@@ -191,7 +191,7 @@ class RegisterState extends State<Register> {
                         SizedBox(height: 20),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor:WidgetStatePropertyAll(Colors.teal[600]),
+                            backgroundColor:WidgetStatePropertyAll(Colors.teal[400]),
                             shape: WidgetStatePropertyAll(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),

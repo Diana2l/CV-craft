@@ -107,7 +107,7 @@ class _ProfileState extends State<Profile> {
                           ? FileImage(File(profile.avatarPath!))
                           : null,
                       child: profile.avatarPath == null
-                          ? Icon(Icons.person, size: 50)
+                          ? Icon(Icons.camera_alt_outlined, size: 20)
                           : null,
                     ),
                   ),

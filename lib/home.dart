@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:cv_craft/screens/education.dart';
 import 'package:cv_craft/screens/experience.dart';
-import 'package:cv_craft/screens/favorites.dart';
 import 'package:cv_craft/screens/objectives.dart';
 import 'package:cv_craft/screens/samples.dart';
 import 'package:cv_craft/screens/skills.dart';

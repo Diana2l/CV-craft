@@ -81,8 +81,8 @@ class TemplateItem extends StatelessWidget {
                 PopupMenuItem<int>(
                   value: 1,
                   child: ListTile(
-                    leading: Icon(Icons.favorite),
-                    title: Text('Add to favorites'),
+                    leading: Icon(Icons.download),
+                    title: Text('Download'),
                   ),
                 ),
               ],
@@ -120,9 +120,8 @@ class TemplateItem extends StatelessWidget {
           ));
         } 
         break;
-      case 1:
-        print('Add to favorites');
-        break;
+     
+        
     }
   }
 }

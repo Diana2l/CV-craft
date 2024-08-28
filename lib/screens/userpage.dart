@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:cv_craft/auth/login.dart';
 import 'package:cv_craft/home.dart';
 import 'package:cv_craft/screens/about.dart';
-import 'package:cv_craft/screens/favorites.dart';
 import 'package:cv_craft/screens/profile.dart';
 import 'package:cv_craft/screens/samples.dart';
 import 'package:cv_craft/screens/settings.dart';
@@ -37,11 +36,7 @@ class _UserpageState extends State<Userpage> {
       )
       
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.favorite_border_outlined),
-      label: 'Favorites',
-      activeIcon: Icon(Icons.favorite)
-    ),
+   
     BottomNavigationBarItem(
       icon: Icon(Icons.create_outlined),
       label: 'Create',
@@ -53,7 +48,6 @@ class _UserpageState extends State<Userpage> {
   final List<Widget> _pages=[
     Home(),
       Templates(),
-      Favorites(),
       Build(fontSize: 16, fontFamily:'OpenSans', color: Colors.red, headerFontSize: 24,),
       
   ];
