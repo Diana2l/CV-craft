@@ -49,6 +49,7 @@ class RegisterState extends State<Register> {
         'first_name': firstNameController.text.trim(),
         'last_name': lastNameController.text.trim(),
         'email': emailController.text.trim(),
+        'created_at': FieldValue.serverTimestamp(), 
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -64,135 +65,164 @@ class RegisterState extends State<Register> {
           builder: (context) => Userpage(),
         ),
       );
-   } catch (e) {
-  print("Error: ${e.toString()}");
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text("Error: ${e.toString()}"),
-      backgroundColor: Colors.red,
-    ),
-  );
-}
-
+    } catch (e) {
+      print("Error: ${e.toString()}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error: ${e.toString()}"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[100],
-      appBar: AppBar(
-        title: Text('Register'),
-        backgroundColor: Colors.teal,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: firstNameController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey),
-                  ),
-                  prefixIcon: Icon(Icons.people_alt_outlined),
-                  labelText: "First Name",
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.paste),
-                    onPressed: () async {
-                      ClipboardData? data = await Clipboard.getData('text/plain');
-                      if (data != null) {
-                        firstNameController.text = data.text!;
-                      }
-                    },
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.teal[200]!, Colors.teal[600]!],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Create Account",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: lastNameController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey),
+                SizedBox(height: 20),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
-                  prefixIcon: Icon(Icons.people_alt_outlined),
-                  labelText: "Last Name",
-                ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey),
+                  elevation: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [                      
+                        TextField(
+                          controller: firstNameController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(color: Colors.blueGrey),
+                            ),
+                            prefixIcon: Icon(Icons.person_outline),
+                            labelText: "First Name",
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        TextField(
+                          controller: lastNameController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(color: Colors.blueGrey),
+                            ),
+                            prefixIcon: Icon(Icons.person_outline),
+                            labelText: "Last Name",
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        TextField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(color: Colors.blueGrey),
+                            ),
+                            prefixIcon: Icon(Icons.email_outlined),
+                            labelText: "Email",
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        TextField(
+                          controller: passwordController,
+                          obscureText: _obscureText,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(color: Colors.blueGrey),
+                            ),
+                            prefixIcon: Icon(Icons.lock_outline),
+                            suffixIcon: IconButton(
+                              icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                            ),
+                            labelText: "Password",
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        TextField(
+                          controller: confirmPasswordController,
+                          obscureText: _obscureTextforPassConfirm,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(color: Colors.blueGrey),
+                            ),
+                            prefixIcon: Icon(Icons.lock_outline),
+                            suffixIcon: IconButton(
+                              icon: Icon(_obscureTextforPassConfirm ? Icons.visibility_off : Icons.visibility),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureTextforPassConfirm = !_obscureTextforPassConfirm;
+                                });
+                              },
+                            ),
+                            labelText: "Confirm Password",
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:WidgetStatePropertyAll(Colors.teal[600]),
+                            shape: WidgetStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                          ),
+                          child: Text('Register'),
+                          onPressed: register,
+                        ),
+                        SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
+                          },
+                          child: Text(
+                            "Already have an account?",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.teal[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  prefixIcon: Icon(Icons.email_outlined),
-                  labelText: "Email",
                 ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: passwordController,
-                obscureText: _obscureText,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey),
-                  ),
-                  prefixIcon: Icon(Icons.lock_person_outlined),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                  ),
-                  labelText: "Password",
-                ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: confirmPasswordController,
-                obscureText: _obscureTextforPassConfirm,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey),
-                  ),
-                  prefixIcon: Icon(Icons.lock_person_outlined),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscureTextforPassConfirm ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _obscureTextforPassConfirm = !_obscureTextforPassConfirm;
-                      });
-                    },
-                  ),
-                  labelText: "Confirm Password",
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.blueGrey),
-                ),
-                child: Text('Register'),
-                onPressed: register,
-              ),
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                  );
-                },
-                child: Text(
-                  "Already have an account?",
-                  style: TextStyle(decoration: TextDecoration.underline),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

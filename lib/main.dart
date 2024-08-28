@@ -16,8 +16,9 @@ import 'package:cv_craft/screens/skills.dart';
 import 'package:cv_craft/screens/userpage.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-import 'utility/globals.dart' as globals;
+import 'auth/utility/globals.dart' as globals;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         '/userpage': (context) => Userpage(),
         '/settings': (context) => Settings(onThemeChanged: (bool ) {  },),
         '/profile': (context) => Profile(),
-        '/build': (context) => Build(),
+        '/build': (context) => Build(fontSize: 16, headerFontSize: 24, fontFamily: 'OpenSans', color:Colors.red,),
         '/objective': (context) => Objectives(),
         '/personal': (context) => Profile(),
         '/education': (context) => Education(),
@@ -94,6 +95,47 @@ class ThemeProvider with ChangeNotifier {
   }
 }
 
+class ProfileModel with ChangeNotifier {
+  String _username = 'John Doe';
+  String _email = 'john.doe@example.com';
+  String? _avatarPath;
+
+  String get username => _username;
+  String get email => _email;
+  String? get avatarPath => _avatarPath;
+
+  void setUsername(String username) {
+    _username = username;
+    notifyListeners();
+  }
+
+  void setEmail(String email) {
+    _email = email;
+    notifyListeners();
+  }
+
+  void setAvatarPath(String path) {
+    _avatarPath = path;
+    notifyListeners();
+  }
+
+  Future<void> loadProfileData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _username = prefs.getString('username') ?? 'John Doe';
+    _email = prefs.getString('email') ?? 'john.doe@example.com';
+    _avatarPath = prefs.getString('avatarPath');
+    notifyListeners();
+  }
+
+  Future<void> saveProfileData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', _username);
+    prefs.setString('email', _email);
+    if (_avatarPath != null) {
+      prefs.setString('avatarPath', _avatarPath!);
+    }
+  }
+}
 
 
 

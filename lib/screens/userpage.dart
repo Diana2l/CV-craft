@@ -54,7 +54,7 @@ class _UserpageState extends State<Userpage> {
     Home(),
       Templates(),
       Favorites(),
-      Build(),
+      Build(fontSize: 16, fontFamily:'OpenSans', color: Colors.red, headerFontSize: 24,),
       
   ];
 
@@ -118,7 +118,7 @@ class _UserpageState extends State<Userpage> {
               },
             ),
             ListTile(
-              title: Text("Samples"),
+              title: Text("CV+CoverLetter"),
               leading: Icon(Icons.type_specimen),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Samples()));

@@ -9,7 +9,7 @@ class CVData {
   String email = '';
   String phone = '';
   String linkedin = '';
-  List<String> experience =[];
+  List<String> experience = [];
   List<String> education = [];
   List<String> skills = [];
   List<String> projects = [];
@@ -18,6 +18,18 @@ class CVData {
 }
 
 class Build extends StatefulWidget {
+  final double fontSize;
+  final double headerFontSize;
+  final String fontFamily;
+  final Color color;
+
+  Build({
+    required this.fontSize,
+    required this.headerFontSize,
+    required this.fontFamily,
+    required this.color,
+  });
+
   @override
   _BuildState createState() => _BuildState();
 }
@@ -43,38 +55,76 @@ class _BuildState extends State<Build> {
                 controller: _nameController,
                 decoration: InputDecoration(labelText: 'Name'),
                 onChanged: (value) => _cvData.name = value,
+                style: TextStyle(
+                  fontSize: widget.fontSize,
+                  fontFamily: widget.fontFamily,
+                  color: widget.color,
+                ),
               ),
               SizedBox(height: 10),
               TextFormField(
                 controller: _summaryController,
                 decoration: InputDecoration(labelText: 'Summary'),
                 onChanged: (value) => _cvData.summary = value,
+                style: TextStyle(
+                  fontSize: widget.fontSize,
+                  fontFamily: widget.fontFamily,
+                  color: widget.color,
+                ),
               ),
               TextFormField(
                 controller: _experienceController,
                 decoration: InputDecoration(labelText: 'Experience'),
                 onChanged: (value) => _cvData.experience = value.split('\n'),
+                style: TextStyle(
+                  fontSize: widget.fontSize,
+                  fontFamily: widget.fontFamily,
+                  color: widget.color,
+                ),
               ),
               TextFormField(
                 controller: _educationController,
                 decoration: InputDecoration(labelText: 'Education'),
                 onChanged: (value) => _cvData.education = value.split('\n'),
+                style: TextStyle(
+                  fontSize: widget.fontSize,
+                  fontFamily: widget.fontFamily,
+                  color: widget.color,
+                ),
               ),
               TextFormField(
                 controller: _skillsController,
                 decoration: InputDecoration(labelText: 'Skills'),
                 onChanged: (value) => _cvData.skills = value.split(', '),
+                style: TextStyle(
+                  fontSize: widget.fontSize,
+                  fontFamily: widget.fontFamily,
+                  color: widget.color,
+                ),
               ),
-              SizedBox(height: 40,),
+              SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => CompiledCVScreen(cvData: _cvData, objectives: '',)),
+                    MaterialPageRoute(
+                      builder: (context) => CompiledCVScreen(
+                        cvData: _cvData,
+                        objectives: '', 
+                        fontSize: widget.fontSize,
+                        headerFontSize: widget.headerFontSize,
+                        fontFamily: widget.fontFamily,
+                        color: widget.color,
+                      ),
+                    ),
                   );
                 },
-                child: Text('Compile CV'),
-              ),
+                child: Text(
+                  'Compile CV',
+                  style: TextStyle(
+                    fontFamily: widget.fontFamily,),
+                ),
+                 ),
             ],
           ),
         ),

@@ -1,16 +1,15 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, prefer_const_constructors, unused_field, unused_import
 
 import 'dart:io';
+import 'package:cv_craft/main.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:cv_craft/main.dart';
-import 'package:cv_craft/models/ProfileModel.dart';
-import 'package:cv_craft/screens/Build.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
-  
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -20,16 +19,23 @@ class _ProfileState extends State<Profile> {
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  File? _avatar;
-  final ImagePicker _picker = ImagePicker();
-  bool _editMode = false; 
+  bool _editMode = false;
   String _welcomeMessage = 'Welcome, John Doe';
 
   @override
   void initState() {
     super.initState();
-    _usernameController.text = 'John Doe'; 
-    _emailController.text = 'john.doe@example.com'; 
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    await Provider.of<ProfileModel>(context, listen: false).loadProfileData();
+    final profile = Provider.of<ProfileModel>(context, listen: false);
+    _usernameController.text = profile.username;
+    _emailController.text = profile.email;
+    setState(() {
+      _welcomeMessage = 'Welcome, ${profile.username}';
+    });
   }
 
   @override
@@ -41,11 +47,11 @@ class _ProfileState extends State<Profile> {
 
   void _saveChanges() async {
     if (_formKey.currentState!.validate()) {
-     
-      print('Username: ${_usernameController.text}');
-      print('Email: ${_emailController.text}');
-    
-      await Future.delayed(const Duration(seconds: 2));
+      final profile = Provider.of<ProfileModel>(context, listen: false);
+      profile.setUsername(_usernameController.text);
+      profile.setEmail(_emailController.text);
+      await profile.saveProfileData();
+      
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Changes saved successfully!'),
@@ -53,18 +59,18 @@ class _ProfileState extends State<Profile> {
         ),
       );
       setState(() {
-        _editMode = false; 
-        _welcomeMessage = 'Welcome, ${_usernameController.text}'; 
+        _editMode = false;
+        _welcomeMessage = 'Welcome, ${_usernameController.text}';
       });
     }
   }
 
   void _changeAvatar() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final profile = Provider.of<ProfileModel>(context, listen: false);
+    final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
-      setState(() {
-        _avatar = File(image.path);
-      });
+      profile.setAvatarPath(image.path);
+      await profile.saveProfileData();
     }
   }
 
@@ -88,7 +94,8 @@ class _ProfileState extends State<Profile> {
           ),
           body: Form(
             key: _formKey,
-            child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -96,13 +103,18 @@ class _ProfileState extends State<Profile> {
                     onTap: _changeAvatar,
                     child: CircleAvatar(
                       radius: 50,
-                      backgroundImage: _avatar != null ? Image.file(_avatar!).image : null,
+                      backgroundImage: profile.avatarPath != null
+                          ? FileImage(File(profile.avatarPath!))
+                          : null,
+                      child: profile.avatarPath == null
+                          ? Icon(Icons.person, size: 50)
+                          : null,
                     ),
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
                     controller: _usernameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Username',
                       border: OutlineInputBorder(),
                     ),
@@ -112,12 +124,12 @@ class _ProfileState extends State<Profile> {
                       }
                       return null;
                     },
-                    enabled: _editMode, 
+                    enabled: _editMode,
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: _emailController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Email',
                       border: OutlineInputBorder(),
                     ),
@@ -129,7 +141,7 @@ class _ProfileState extends State<Profile> {
                       }
                       return null;
                     },
-                    enabled: _editMode, 
+                    enabled: _editMode,
                   ),
                   const SizedBox(height: 20),
                   _editMode
@@ -137,7 +149,7 @@ class _ProfileState extends State<Profile> {
                           onPressed: _saveChanges,
                           child: const Text('Save Changes'),
                         )
-                      : Container(), 
+                      : Container(),
                 ],
               ),
             ),

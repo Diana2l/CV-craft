@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:cv_craft/main.dart';
 import 'package:cv_craft/screens/font_style.dart';
-import 'package:cv_craft/utility/globals.dart' as globals;
+import 'package:cv_craft/auth/utility/globals.dart' as globals;
 
 class Settings extends StatefulWidget {
   const Settings({super.key, required this.onThemeChanged});
