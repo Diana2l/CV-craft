@@ -29,11 +29,11 @@ class CompiledCVScreen extends StatelessWidget {
       body: ListView(
         children: [
           _buildSection('Name', cvData.name, headerFontSize, fontFamily, color),
-          _buildSection('Summary', cvData.summary, fontSize, fontFamily, color),
+          _buildSection('Objectives', cvData.summary, fontSize, fontFamily, color),
           _buildSection('Experience', cvData.experience.join('\n'), fontSize, fontFamily, color),
           _buildSection('Education', cvData.education.join('\n'), fontSize, fontFamily, color),
           _buildSection('Skills', cvData.skills.join(', '), fontSize, fontFamily, color),
-          _buildSection('Objectives', objectives, fontSize, fontFamily, color),
+          
         ],
       ),
     );

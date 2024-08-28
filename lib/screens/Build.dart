@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, library_private_types_in_public_api, prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: file_names, library_private_types_in_public_api, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:cv_craft/screens/compiled_cv.dart';
@@ -53,6 +53,7 @@ class _BuildState extends State<Build> {
               SizedBox(height: 60),
               TextFormField(
                 controller: _nameController,
+                maxLines: null,
                 decoration: InputDecoration(labelText: 'Name'),
                 onChanged: (value) => _cvData.name = value,
                 style: TextStyle(
@@ -64,7 +65,8 @@ class _BuildState extends State<Build> {
               SizedBox(height: 10),
               TextFormField(
                 controller: _summaryController,
-                decoration: InputDecoration(labelText: 'Summary'),
+                maxLines: null,
+                decoration: InputDecoration(labelText: 'Objectives'),
                 onChanged: (value) => _cvData.summary = value,
                 style: TextStyle(
                   fontSize: widget.fontSize,
@@ -74,6 +76,7 @@ class _BuildState extends State<Build> {
               ),
               TextFormField(
                 controller: _experienceController,
+                maxLines: null,
                 decoration: InputDecoration(labelText: 'Experience'),
                 onChanged: (value) => _cvData.experience = value.split('\n'),
                 style: TextStyle(
@@ -84,6 +87,7 @@ class _BuildState extends State<Build> {
               ),
               TextFormField(
                 controller: _educationController,
+                maxLines: null,
                 decoration: InputDecoration(labelText: 'Education'),
                 onChanged: (value) => _cvData.education = value.split('\n'),
                 style: TextStyle(
@@ -94,6 +98,7 @@ class _BuildState extends State<Build> {
               ),
               TextFormField(
                 controller: _skillsController,
+                maxLines: null,
                 decoration: InputDecoration(labelText: 'Skills'),
                 onChanged: (value) => _cvData.skills = value.split(', '),
                 style: TextStyle(

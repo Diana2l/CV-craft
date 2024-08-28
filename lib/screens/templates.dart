@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cv_craft/models/ClassicPage.dart';
 import 'package:cv_craft/models/creative.dart';
 import 'package:cv_craft/models/minimalist.dart';
 import 'package:cv_craft/models/modern.dart';
 import 'package:cv_craft/models/technical.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 class Templates extends StatelessWidget {
   final List<String> templates = [
@@ -93,7 +96,7 @@ class TemplateItem extends StatelessWidget {
     );
   }
 
-  void onSelected(BuildContext context, int item) {
+  Future<void> onSelected(BuildContext context, int item) async {
     switch (item) {
       case 0:
         if (templateName == 'Modern') {
@@ -120,8 +123,29 @@ class TemplateItem extends StatelessWidget {
           ));
         } 
         break;
-     
+        case 1:
+        await downloadTemplate(templateImage);
         
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Template downloaded')),
+        );
+        break;
     }
   }
+  Future<void> downloadTemplate(String url) async {
+    try {
+      final directory = await getApplictionDownloadsDirectory();
+      final file = File('${directory.path}/template.zip');
+      
+      print('Downloaded templates are saved in : ${directory.path}');
+      final filePath = '${directory.path}/${url.split('/').last}';
+      await Dio().download(url, filePath);
+    } catch (e) {
+      print('Error downloading template:$e');
+}
+}
+
+  getApplictionDownloadsDirectory() {}
+  
+  
 }
