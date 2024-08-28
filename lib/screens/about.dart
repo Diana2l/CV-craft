@@ -12,7 +12,11 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      title: 'About',
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        ),
     );
   }
 }
