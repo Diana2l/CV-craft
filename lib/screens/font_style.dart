@@ -50,7 +50,7 @@ class _FontStylePageState extends State<FontStylePage> {
   }
 
   double _parseFontSize(String fontSize) {
-    return double.parse(fontSize.split(' ')[0]) ?? 16.0;
+    return double.parse(fontSize.split(' ')[0]);
   }
 
   @override
