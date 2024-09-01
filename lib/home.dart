@@ -6,6 +6,7 @@ import 'package:cv_craft/screens/experience.dart';
 import 'package:cv_craft/screens/objectives.dart';
 import 'package:cv_craft/screens/samples.dart';
 import 'package:cv_craft/screens/skills.dart';
+import 'package:cv_craft/screens/FAQ.dart';
 import 'package:flutter/widgets.dart';
 
 class Home extends StatefulWidget {
@@ -79,9 +80,9 @@ class _HomeState extends State<Home> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/help');
+                  Navigator.pushNamed(context, '/faq');
                 },
-                child: _buildGridItem(Icons.help, 'Help'),
+                child: _buildGridItem(Icons.question_answer_outlined, 'FAQ'),
               ),
             ],
           ),

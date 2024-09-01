@@ -27,7 +27,7 @@ class Build extends StatefulWidget {
     required this.fontSize,
     required this.headerFontSize,
     required this.fontFamily,
-    required this.color,
+    required this.color, required String objective,
   });
 
   @override

@@ -63,7 +63,9 @@ class _SamplesState extends State<Samples> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Apply for Job'),
+        title: Text('Compiler'),
+        centerTitle: true,
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

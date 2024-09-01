@@ -25,6 +25,7 @@ class Templates extends StatelessWidget {
       appBar: AppBar(
         title: Text('Pick A Template!'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

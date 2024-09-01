@@ -8,7 +8,7 @@ import 'package:cv_craft/auth/register.dart';
 import 'package:cv_craft/models/ProfileModel.dart';
 import 'package:cv_craft/screens/education.dart';
 import 'package:cv_craft/screens/experience.dart';
-import 'package:cv_craft/screens/help.dart';
+import 'package:cv_craft/screens/FAQ.dart';
 import 'package:cv_craft/screens/objectives.dart';
 import 'package:cv_craft/screens/profile.dart';
 import 'package:cv_craft/screens/settings.dart';
@@ -61,13 +61,13 @@ class _MyAppState extends State<MyApp> {
         '/userpage': (context) => Userpage(),
         '/settings': (context) => Settings(onThemeChanged: (bool ) {  },),
         '/profile': (context) => Profile(),
-        '/build': (context) => Build(fontSize: 16, headerFontSize: 24, fontFamily: 'OpenSans', color:Colors.red,),
+        '/build': (context) => Build(fontSize: 16, headerFontSize: 24, fontFamily: 'OpenSans', color:Colors.red, objective: '',),
         '/objective': (context) => Objectives(),
         '/personal': (context) => Profile(),
         '/education': (context) => Education(),
         '/experience': (context) => Experience(),
         '/skills': (context) => Skills(),
-        '/help': (context) => Help(),
+        '/faq': (context) => FAQ(),
         '/templates':(context) => Templates(),
       },
     );

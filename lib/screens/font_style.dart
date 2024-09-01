@@ -126,7 +126,7 @@ class _FontStylePageState extends State<FontStylePage> {
                       fontSize: _parseFontSize(_fontSize),
                       headerFontSize: _parseFontSize(_headerFontSize),
                       fontFamily:  _fontFamily,
-                      color: _selectedColor,
+                      color: _selectedColor, objective: '',
 
                     )),
                   );

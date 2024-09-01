@@ -25,6 +25,7 @@ class CompiledCVScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Compiled CV', style: TextStyle(fontFamily: fontFamily , color: color , fontSize: fontSize)),
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: [
