@@ -57,7 +57,7 @@ class _FontStylePageState extends State<FontStylePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Font Style', style: TextStyle(fontFamily: _fontFamily)),
+        title: Text('Text Style', style: TextStyle(fontFamily: _fontFamily)),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
@@ -126,7 +126,7 @@ class _FontStylePageState extends State<FontStylePage> {
                       fontSize: _parseFontSize(_fontSize),
                       headerFontSize: _parseFontSize(_headerFontSize),
                       fontFamily:  _fontFamily,
-                      color: _selectedColor, objective: '',
+                      color: _selectedColor, objective: '', template: '', templateImage: '',
 
                     )),
                   );

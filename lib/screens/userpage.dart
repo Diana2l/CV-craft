@@ -48,7 +48,7 @@ class _UserpageState extends State<Userpage> {
   final List<Widget> _pages=[
     Home(),
       Templates(),
-      Build(fontSize: 16, fontFamily:'OpenSans', color: Colors.red, headerFontSize: 24, objective: '',),
+      Build(fontSize: 16, fontFamily:'OpenSans', color: Colors.red, headerFontSize: 24, objective: '', template: '', templateImage: '',),
       
   ];
 

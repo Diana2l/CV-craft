@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors, unused_local_variable, depend_on_referenced_packages, unused_import
+// ignore_for_file: depend_on_referenced_packages
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
@@ -17,6 +15,10 @@ class _SamplesState extends State<Samples> {
   String? _cvPath;
   final TextEditingController _coverLetterController = TextEditingController();
 
+  
+  
+
+ 
   Future<void> _pickCV() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -28,36 +30,71 @@ class _SamplesState extends State<Samples> {
   }
 
   Future<void> _generatePDF() async {
-   if (_cvPath == null || _coverLetterController.text.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-   SnackBar(content: Text('Please provide a cover letter and select a CV.')),
+    if (_cvPath == null || _coverLetterController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please provide a cover letter and select a CV.')),
       );
       return;
     }
 
-    final pdf = pw.Document();
-    final pdfImage = pw.MemoryImage(await File(_cvPath!).readAsBytes());
+    try {
+      final pdf = pw.Document();
+      final file = File(_cvPath!);
 
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) => pw.Column(
-          children: [
-            pw.Text('Cover Letter', style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
-            pw.SizedBox(height: 20),
-            pw.Text(_coverLetterController.text),
-            pw.SizedBox(height: 40),
-            pw.Image(pdfImage),
-          ],
-        ),
-      ),
-    );
+      if (!await file.exists()) {
+        throw Exception('CV file does not exist');
+      }
 
-   
-    final outputFile = await Printing.sharePdf(
-     bytes: await pdf.save(),
-     filename: 'application.pdf',
-    );
+      final fileExtension = _cvPath!.split('.').last.toLowerCase();
+      final fileBytes = await file.readAsBytes();
+
+      if (fileExtension == 'png' || fileExtension == 'jpg' || fileExtension == 'jpeg') {
+        final pdfImage = pw.MemoryImage(fileBytes);
+        pdf.addPage(
+          pw.Page(
+            build: (pw.Context context) => pw.Column(
+              children: [
+                pw.Text('Cover Letter', style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                pw.SizedBox(height: 20),
+                pw.Text(_coverLetterController.text),
+                pw.SizedBox(height: 40),
+                pw.Image(pdfImage),
+              ],
+            ),
+          ),
+        );
+      } else {
+        pdf.addPage(
+          pw.Page(
+            build: (pw.Context context) => pw.Column(
+              children: [
+                pw.Text('Cover Letter', style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
+                pw.SizedBox(height: 20),
+                pw.Text(_coverLetterController.text),
+                pw.SizedBox(height: 40),
+                pw.Text('CV file is not an image and cannot be displayed.'),
+              ],
+            ),
+          ),
+        );
+      }
+
+      await Printing.sharePdf(
+        bytes: await pdf.save(),
+        filename: 'application.pdf',
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('PDF Generated and Shared Successfully!')),
+      );
+    } catch (e) {
+      print("Error generating PDF: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to generate PDF: $e')),
+      );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {

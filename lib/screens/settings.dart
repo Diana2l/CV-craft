@@ -47,32 +47,13 @@ class _SettingsState extends State<Settings> {
                   ),
                   const SizedBox(height: 10),
                   ListTile(
-                    title: const Text('Notifications'),
-                    trailing: Switch(
-                      value: _notificationsSwitchValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _notificationsSwitchValue = value;
-                        });
-                       
-                      },
-                    ),
-                  ),
-                  ListTile(
-                    title: const Text('Font Style'),
+                    title: const Text('Text Style'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FontStylePage(
-                            onApply: (String fontSize, String headerFontSize, String fontFamily, Color selectedColor) {
-                              print('Font Size: $fontSize');
-                              print('Header Font Size: $headerFontSize');
-                              print('Font Family: $fontFamily');
-                              print('Selected Color: $selectedColor');
-                            },
-                          ),
+                          builder: (context) => FontStylePage(onApply: (String fontSize, String headerFontSize, String fontFamily, Color selectedColor) {  },),
                         ),
                       );
                     },

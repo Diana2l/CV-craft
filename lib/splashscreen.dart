@@ -31,7 +31,7 @@ class _SplashscreenState extends State<Splashscreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/images/City.jpeg'),
-            Text('Jobs Link', style: TextStyle(fontSize: 20, color: Colors.blue),),
+            Text('CV Craft', style: TextStyle(fontSize: 20, color: Colors.blue),),
             CircularProgressIndicator(),
             ],
             ),

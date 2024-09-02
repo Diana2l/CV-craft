@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         '/userpage': (context) => Userpage(),
         '/settings': (context) => Settings(onThemeChanged: (bool ) {  },),
         '/profile': (context) => Profile(),
-        '/build': (context) => Build(fontSize: 16, headerFontSize: 24, fontFamily: 'OpenSans', color:Colors.red, objective: '',),
+        '/build': (context) => Build(fontSize: 16, headerFontSize: 24, fontFamily: 'OpenSans', color:Colors.red, objective: '', template: '', templateImage: '',),
         '/objective': (context) => Objectives(),
         '/personal': (context) => Profile(),
         '/education': (context) => Education(),
