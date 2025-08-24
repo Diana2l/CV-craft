@@ -1,8 +1,14 @@
 // ignore_for_file: file_names, library_private_types_in_public_api, prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
+import 'package:cv_craft/home.dart';
 import 'package:flutter/material.dart';
 import 'package:cv_craft/screens/compiled_cv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cv_craft/screens/settings.dart';
+import 'package:cv_craft/screens/report_screen.dart';
+import 'package:cv_craft/screens/about.dart';
+import 'package:cv_craft/screens/samples.dart';
+import 'package:cv_craft/auth/login.dart';
 
 // Import the CVData from models
 import 'package:cv_craft/models/cv_data.dart' as cv_data;
@@ -379,55 +385,273 @@ class _BuildState extends State<Build> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        colorScheme: ColorScheme.light(
-          primary: Colors.teal,
-          secondary: Colors.tealAccent,
+  void _showResetDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'Reset Form',
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
+        content: Text(
+          'Are you sure you want to reset all form data? This action cannot be undone.',
+          style: GoogleFonts.poppins(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _resetForm();
+            },
+            child: Text('Reset', style: TextStyle(color: Colors.red)),
+          ),
+        ],
       ),
-      child: Form(
-        key: _formKey,
-        child: Stepper(
-          currentStep: _currentStep,
-          onStepContinue: _onStepContinue,
-          onStepCancel: _onStepCancel,
-          onStepTapped: (step) => setState(() => _currentStep = step),
-          steps: _steps,
-          controlsBuilder: (context, details) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 24.0),
-              child: Row(
-                children: [
-                  if (_currentStep != 0)
-                    TextButton(
-                      onPressed: details.onStepCancel,
-                      child: Text('BACK', style: GoogleFonts.poppins(fontWeight: FontWeight.w500)),
-                    ),
-                  SizedBox(width: 12),
-                  ElevatedButton(
-                    onPressed: details.onStepContinue,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      _currentStep == _steps.length - 1 ? 'PREVIEW CV' : 'NEXT',
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
-                    ),
+    );
+  }
+
+  void _resetForm() {
+    setState(() {
+      _currentStep = 0;
+      _nameController.clear();
+      _emailController.clear();
+      _phoneController.clear();
+      _linkedinController.clear();
+      _addressController.clear();
+      _summaryController.clear();
+      _experienceController.clear();
+      _educationController.clear();
+      _skillsController.clear();
+      _projectsController.clear();
+      _languagesController.clear();
+      _certificationsController.clear();
+      
+      // Reset CV data
+      _cvData.name = '';
+      _cvData.email = '';
+      _cvData.phone = '';
+      _cvData.linkedin = '';
+      _cvData.address = '';
+      _cvData.summary = '';
+      _cvData.experience = [];
+      _cvData.education = [];
+      _cvData.skills = [];
+      _cvData.projects = [];
+      _cvData.languages = [];
+      _cvData.certifications = [];
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Form reset successfully!'),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
+  void _showHelpDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'CV Builder Help',
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Tips for building your CV:',
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 12),
+              _helpItem('📝', 'Fill out each step completely'),
+              _helpItem('💾', 'Save your progress regularly'),
+              _helpItem('👀', 'Preview your CV before finalizing'),
+              _helpItem('🎯', 'Use action verbs in experience'),
+              _helpItem('📊', 'Quantify achievements with numbers'),
+              _helpItem('🔤', 'Keep descriptions concise and clear'),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Got it!'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _helpItem(String emoji, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        children: [
+          Text(emoji, style: TextStyle(fontSize: 16)),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: GoogleFonts.poppins(fontSize: 14),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 🔹 Drawer
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.teal.shade600, Colors.teal.shade400],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.build_outlined, color: Colors.white, size: 32),
+                SizedBox(height: 8),
+                Text(
+                  'CV Builder',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
+                Text(
+                  'Step ${_currentStep + 1} of ${_steps.length}',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white70,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _drawerItem(Icons.home, 'Home', () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => Home()),
+          )),
+          _drawerItem(Icons.settings, 'Settings', () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Settings(onThemeChanged: (bool _) {})),
+          )),
+          _drawerItem(Icons.report, 'Reports', () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ReportScreen(cvData: _cvData)),
+          )),
+          _drawerItem(Icons.type_specimen, 'AI Cover Letter', () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Samples()),
+          )),
+          _drawerItem(Icons.info, 'About Us', () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => About()),
+          )),
+          Divider(),
+          _drawerItem(Icons.save, 'Save Progress', () {
+            _updateCVData();
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Progress saved!'),
+                backgroundColor: Colors.green,
               ),
             );
-          },
+          }),
+          _drawerItem(Icons.preview, 'Preview CV', () {
+            _submitForm();
+          }),
+          _drawerItem(Icons.logout, 'Log Out', () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => Login()),
+          )),
+        ],
+      ),
+    );
+  }
+
+  Widget _drawerItem(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.teal),
+      title: Text(
+        title,
+        style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+      ),
+      onTap: onTap,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: _buildDrawer(context),
+      appBar: null,
+      body: Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.light(
+            primary: Colors.teal,
+            secondary: Colors.tealAccent,
+          ),
+        ),
+        child: Form(
+          key: _formKey,
+          child: Stepper(
+            currentStep: _currentStep,
+            onStepContinue: _onStepContinue,
+            onStepCancel: _onStepCancel,
+            onStepTapped: (step) => setState(() => _currentStep = step),
+            steps: _steps,
+            controlsBuilder: (context, details) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 24.0),
+                child: Row(
+                  children: [
+                    if (_currentStep != 0)
+                      TextButton(
+                        onPressed: details.onStepCancel,
+                        child: Text('BACK', style: GoogleFonts.poppins(fontWeight: FontWeight.w500)),
+                      ),
+                    SizedBox(width: 12),
+                    ElevatedButton(
+                      onPressed: details.onStepContinue,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal,
+                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        _currentStep == _steps.length - 1 ? 'PREVIEW CV' : 'NEXT',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

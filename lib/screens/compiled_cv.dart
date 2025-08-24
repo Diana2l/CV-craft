@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CompiledCVScreen extends StatelessWidget {
   final CVData cvData;
@@ -30,7 +31,7 @@ class CompiledCVScreen extends StatelessWidget {
     this.templateImage = '',
   });
 
-  Future<String> _generateAndSavePdf() async {
+  Future<String> _downloadPdf() async {
     try {
       final pdf = pw.Document();
 
@@ -53,102 +54,81 @@ class CompiledCVScreen extends StatelessWidget {
                 if ((cvData.address ?? '').toString().isNotEmpty) pw.Text('Address: ${cvData.address}'),
 
                 pw.SizedBox(height: 20),
-                pw.Header(level: 1, child: pw.Text('Objective')),
-                pw.Text(objectives.isNotEmpty ? objectives : 'No objective provided'),
+                pw.Header(level: 1, child: pw.Text('Professional Summary')),
+                pw.Text((cvData.summary ?? '').toString().isNotEmpty ? cvData.summary : 'No summary provided'),
 
-                // Education (supports List<Map> or List<String>)
-                if (cvData.education != null && cvData.education!.isNotEmpty) ...[
+                // Education
+                if (cvData.education != null && cvData.education!.any((item) => item.trim().isNotEmpty)) ...[
                   pw.SizedBox(height: 20),
                   pw.Header(level: 1, child: pw.Text('Education')),
-                  ...cvData.education!.map((item) {
-                    if (item is Map) {
-                      final edu = Map<String, dynamic>.from(item as Map);
-                      final degree = (edu['degree'] ?? '').toString().trim();
-                      final institution = (edu['institution'] ?? '').toString().trim();
-                      final year = (edu['year'] ?? '').toString().trim();
-                      final description = (edu['description'] ?? '').toString().trim();
-
-                      final line2 = [institution, year].where((s) => s.isNotEmpty).join(' - ');
-
-                      return pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          if (degree.isNotEmpty) pw.Text(degree, style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                          if (line2.isNotEmpty) pw.Text(line2),
-                          if (description.isNotEmpty) pw.Text(description),
-                          pw.SizedBox(height: 5),
-                        ],
-                      );
-                    } else {
-                      // Fallback: treat as plain string
-                      final text = item?.toString().trim() ?? '';
-                      return pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          if (text.isNotEmpty) pw.Text(text),
-                          pw.SizedBox(height: 5),
-                        ],
-                      );
-                    }
+                  ...cvData.education!.where((item) => item.trim().isNotEmpty).map((item) {
+                    return pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(item.trim()),
+                        pw.SizedBox(height: 5),
+                      ],
+                    );
                   }).toList(),
                 ],
 
-                // Experience (supports List<Map> or List<String>)
-                if (cvData.experience != null && cvData.experience!.isNotEmpty) ...[
+                // Experience
+                if (cvData.experience != null && cvData.experience!.any((item) => item.trim().isNotEmpty)) ...[
                   pw.SizedBox(height: 20),
-                  pw.Header(level: 1, child: pw.Text('Experience')),
-                  ...cvData.experience!.map((item) {
-                    if (item is Map) {
-                      final exp = Map<String, dynamic>.from(item as Map);
-
-                      final title = (exp['title'] ?? '').toString().trim();
-                      final company = (exp['company'] ?? '').toString().trim();
-                      final duration = (exp['duration'] ?? '').toString().trim();
-                      final desc = (exp['description'] ?? '').toString().trim();
-
-                      final companyLine = [company, duration].where((s) => s.isNotEmpty).join(' - ');
-
-                      return pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          if (title.isNotEmpty) pw.Text(title, style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                          if (companyLine.isNotEmpty) pw.Text(companyLine),
-                          if (desc.isNotEmpty) pw.Text(desc),
-                          pw.SizedBox(height: 5),
-                        ],
-                      );
-                    } else {
-                      // Fallback: treat as plain string
-                      final text = item?.toString().trim() ?? '';
-                      return pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          if (text.isNotEmpty) pw.Text(text),
-                          pw.SizedBox(height: 5),
-                        ],
-                      );
-                    }
+                  pw.Header(level: 1, child: pw.Text('Work Experience')),
+                  ...cvData.experience!.where((item) => item.trim().isNotEmpty).map((item) {
+                    return pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(item.trim()),
+                        pw.SizedBox(height: 5),
+                      ],
+                    );
                   }).toList(),
                 ],
 
-                // Skills (render as "chips" using Container; pw.Chip doesn't exist)
-                if (cvData.skills != null && cvData.skills!.isNotEmpty) ...[
+                // Skills
+                if (cvData.skills != null && cvData.skills!.any((item) => item.trim().isNotEmpty)) ...[
                   pw.SizedBox(height: 20),
                   pw.Header(level: 1, child: pw.Text('Skills')),
-                  pw.Wrap(
-                    spacing: 8,
-                    runSpacing: 4,
-                    children: cvData.skills!
-                        .map((skill) => pw.Container(
-                              padding: const pw.EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: pw.BoxDecoration(
-                                border: pw.Border.all(color: PdfColors.teal, width: 1),
-                                borderRadius: pw.BorderRadius.circular(6),
-                              ),
-                              child: pw.Text(skill.toString()),
-                            ))
-                        .toList(),
-                  ),
+                  pw.Text(cvData.skills!.where((skill) => skill.trim().isNotEmpty).join(', ')),
+                ],
+
+                // Projects
+                if (cvData.projects != null && cvData.projects!.any((item) => item.trim().isNotEmpty)) ...[
+                  pw.SizedBox(height: 20),
+                  pw.Header(level: 1, child: pw.Text('Projects')),
+                  ...cvData.projects!.where((item) => item.trim().isNotEmpty).map((item) {
+                    return pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(item.trim()),
+                        pw.SizedBox(height: 5),
+                      ],
+                    );
+                  }).toList(),
+                ],
+
+                // Languages
+                if (cvData.languages != null && cvData.languages!.any((item) => item.trim().isNotEmpty)) ...[
+                  pw.SizedBox(height: 20),
+                  pw.Header(level: 1, child: pw.Text('Languages')),
+                  pw.Text(cvData.languages!.where((lang) => lang.trim().isNotEmpty).join(', ')),
+                ],
+
+                // Certifications
+                if (cvData.certifications != null && cvData.certifications!.any((item) => item.trim().isNotEmpty)) ...[
+                  pw.SizedBox(height: 20),
+                  pw.Header(level: 1, child: pw.Text('Certifications')),
+                  ...cvData.certifications!.where((item) => item.trim().isNotEmpty).map((item) {
+                    return pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(item.trim()),
+                        pw.SizedBox(height: 5),
+                      ],
+                    );
+                  }).toList(),
                 ],
               ],
             );
@@ -156,17 +136,22 @@ class CompiledCVScreen extends StatelessWidget {
         ),
       );
 
-      // Save to a temporary directory (no extra permissions required)
-      final output = await getTemporaryDirectory();
-      final file = File('${output.path}/cv_${DateTime.now().millisecondsSinceEpoch}.pdf');
+      // Use temporary directory (always available)
+      final tempDir = await getTemporaryDirectory();
+      
+      // Create filename with timestamp
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final fileName = 'CV_${cvData.name.replaceAll(' ', '_')}_$timestamp.pdf';
+      final file = File('${tempDir.path}/$fileName');
+      
       await file.writeAsBytes(await pdf.save());
 
-      // Share using XFile
+      // Share the file instead of trying to save to downloads
       await Share.shareXFiles([XFile(file.path)], text: 'My CV');
 
       return file.path;
     } catch (e) {
-      throw Exception('Failed to generate PDF: $e');
+      throw Exception('Failed to download PDF: $e');
     }
   }
 
@@ -190,26 +175,17 @@ class CompiledCVScreen extends StatelessWidget {
               final scaffoldMessenger = ScaffoldMessenger.of(context);
               try {
                 scaffoldMessenger.showSnackBar(
-                  SnackBar(content: Text('Generating PDF...')),
+                  SnackBar(content: Text('Downloading PDF...')),
                 );
 
-                final _ = await _generateAndSavePdf();
+                final filePath = await _downloadPdf();
 
                 if (!context.mounted) return;
 
                 scaffoldMessenger.showSnackBar(
                   SnackBar(
-                    content: Text('CV saved successfully!'),
+                    content: Text('CV shared successfully!'),
                     duration: Duration(seconds: 2),
-                    action: SnackBarAction(
-                      label: 'Open',
-                      onPressed: () {
-                        // Optional: integrate open_filex to really open the file.
-                        scaffoldMessenger.showSnackBar(
-                          SnackBar(content: Text('Opening file...')),
-                        );
-                      },
-                    ),
                   ),
                 );
               } catch (e) {
@@ -217,7 +193,7 @@ class CompiledCVScreen extends StatelessWidget {
 
                 scaffoldMessenger.showSnackBar(
                   SnackBar(
-                    content: Text('Failed to generate PDF: $e'),
+                    content: Text('Failed to download PDF: $e'),
                     backgroundColor: Colors.red,
                     duration: Duration(seconds: 3),
                   ),

@@ -17,7 +17,7 @@ class ReportScreen extends StatefulWidget {
 
   @override
   State<ReportScreen> createState() => _ReportScreenState();
-  }
+}
 
 class _ReportScreenState extends State<ReportScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
@@ -34,12 +34,12 @@ class _ReportScreenState extends State<ReportScreen> with SingleTickerProviderSt
       'Phone': cv.phone.trim().isNotEmpty,
       'LinkedIn': cv.linkedin.trim().isNotEmpty,
       'Address': cv.address.trim().isNotEmpty,
-      'Experience': cv.experience.isNotEmpty,
-      'Education': cv.education.isNotEmpty,
-      'Skills': cv.skills.isNotEmpty,
-      'Projects': cv.projects.isNotEmpty,
-      'Languages': cv.languages.isNotEmpty,
-      'Certifications': cv.certifications.isNotEmpty,
+      'Experience': cv.experience.any((item) => item.trim().isNotEmpty),
+      'Education': cv.education.any((item) => item.trim().isNotEmpty),
+      'Skills': cv.skills.any((item) => item.trim().isNotEmpty),
+      'Projects': cv.projects.any((item) => item.trim().isNotEmpty),
+      'Languages': cv.languages.any((item) => item.trim().isNotEmpty),
+      'Certifications': cv.certifications.any((item) => item.trim().isNotEmpty),
     };
   }
   
