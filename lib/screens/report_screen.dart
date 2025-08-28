@@ -28,7 +28,6 @@ class _ReportScreenState extends State<ReportScreen> with SingleTickerProviderSt
     final cv = widget.cvData;
     return {
       'Name': cv.name.trim().isNotEmpty,
-      'Title': cv.title.trim().isNotEmpty,
       'Summary': cv.summary.trim().isNotEmpty,
       'Email': cv.email.trim().isNotEmpty,
       'Phone': cv.phone.trim().isNotEmpty,
@@ -104,9 +103,6 @@ class _ReportScreenState extends State<ReportScreen> with SingleTickerProviderSt
     
     if (!fields['Name']!) {
       tips.add(_buildTipItem('Add your full name to make your CV more personal'));
-    }
-    if (!fields['Title']!) {
-      tips.add(_buildTipItem('Include a professional title that highlights your expertise'));
     }
     if (!fields['Summary']!) {
       tips.add(_buildTipItem('Write a compelling summary that showcases your key achievements'));
