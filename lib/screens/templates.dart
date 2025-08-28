@@ -71,40 +71,75 @@ class _Templates extends State<Templates> {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: _previousTemplate,
-                icon: const Icon(Icons.arrow_left, size: 40),
-              ),
-              Container(
-                width: 250,
-                height: 350,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: _previousTemplate,
+                  icon: const Icon(Icons.arrow_left, size: 40),
                 ),
-                child: Image.asset(template, fit: BoxFit.contain),
+                Flexible(
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxWidth: 250,
+                      maxHeight: 350,
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(template, fit: BoxFit.contain),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: _nextTemplate,
+                  icon: const Icon(Icons.arrow_right, size: 40),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              templateName,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '${currentIndex + 1} of ${templates.length}',
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => _selectTemplate(template),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  'Use This Template',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
               ),
-              IconButton(
-                onPressed: _nextTemplate,
-                icon: const Icon(Icons.arrow_right, size: 40),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(templateName, style: const TextStyle(fontSize: 20)),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () => _selectTemplate(template),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-            child: const Text('Use This Template'),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
