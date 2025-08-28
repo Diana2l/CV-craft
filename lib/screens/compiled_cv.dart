@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_constructors_in_immutables, must_be_immutable, library_private_types_in_public_api, deprecated_member_use
 
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:cv_craft/screens/Build.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:file_saver/file_saver.dart';
 
 class CompiledCVScreen extends StatelessWidget {
   final CVData cvData;
@@ -136,20 +137,21 @@ class CompiledCVScreen extends StatelessWidget {
         ),
       );
 
-      // Use temporary directory (always available)
-      final tempDir = await getTemporaryDirectory();
+      final bytes = await pdf.save();
       
       // Create filename with timestamp
       final timestamp = DateTime.now().millisecondsSinceEpoch;
-      final fileName = 'CV_${cvData.name.replaceAll(' ', '_')}_$timestamp.pdf';
-      final file = File('${tempDir.path}/$fileName');
-      
-      await file.writeAsBytes(await pdf.save());
+      final fileName = 'CV_${(cvData.name ?? 'CV').replaceAll(' ', '_')}_$timestamp.pdf';
 
-      // Share the file instead of trying to save to downloads
-      await Share.shareXFiles([XFile(file.path)], text: 'My CV');
+      // Save file to downloads folder
+      final filePath = await FileSaver.instance.saveFile(
+        name: fileName,
+        bytes: bytes,
+        ext: 'pdf',
+        mimeType: MimeType.pdf,
+      );
 
-      return file.path;
+      return filePath ?? 'Downloaded successfully';
     } catch (e) {
       throw Exception('Failed to download PDF: $e');
     }
@@ -184,7 +186,7 @@ class CompiledCVScreen extends StatelessWidget {
 
                 scaffoldMessenger.showSnackBar(
                   SnackBar(
-                    content: Text('CV shared successfully!'),
+                    content: Text('CV saved to downloads folder!'),
                     duration: Duration(seconds: 2),
                   ),
                 );
