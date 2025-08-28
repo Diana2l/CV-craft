@@ -3,8 +3,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cv_craft/auth/login.dart';
-import 'package:cv_craft/screens/templates.dart';
-import 'package:cv_craft/screens/userpage.dart';
+import 'package:cv_craft/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -411,7 +410,7 @@ class RegisterState extends State<Register> with SingleTickerProviderStateMixin 
       if (mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Userpage()),
+          MaterialPageRoute(builder: (context) => Home()),
           (route) => false,
         );
       }

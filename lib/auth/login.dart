@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cv_craft/auth/register.dart';
 import 'package:cv_craft/auth/forgot_password.dart';
-import 'package:cv_craft/screens/userpage.dart';
+import 'package:cv_craft/home.dart';
 import 'package:cv_craft/screens/admin_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -314,7 +314,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       MaterialPageRoute(
         builder: (context) => role == 'admin' 
             ? const AdminDashboard() 
-            : Userpage(),
+            : Home(),
       ),
       (route) => false,
     );
