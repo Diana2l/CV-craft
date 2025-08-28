@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_types_as_parameter_names, use_key_in_widget_constructors, library_private_types_in_public_api, unused_import, avoid_print
 
+import 'package:cv_craft/home.dart';
 import 'package:cv_craft/models/cv_data.dart';
 import 'package:cv_craft/screens/faq.dart';
 import 'package:cv_craft/screens/templates.dart';
@@ -14,7 +15,6 @@ import 'package:cv_craft/screens/objectives.dart';
 import 'package:cv_craft/screens/profile.dart';
 import 'package:cv_craft/screens/settings.dart';
 import 'package:cv_craft/screens/skills.dart';
-import 'package:cv_craft/screens/userpage.dart';
 import 'package:cv_craft/screens/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
         '/auth/register': (context) => Register(),
         '/auth/login': (context) => Login(),
         '/templates': (context) => Templates(),
-        '/userpage': (context) => Userpage(),
+        '/home': (context) => Home(),
         '/onboarding_screen': (context) => OnboardingScreen(),
         '/settings': (context) => Settings(onThemeChanged: (bool) {}),
         '/profile': (context) => Profile(),

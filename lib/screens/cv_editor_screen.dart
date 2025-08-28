@@ -72,13 +72,6 @@ class _CVEditorScreenState extends State<CVEditorScreen> {
         centerTitle: true,
         backgroundColor: Colors.teal,
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.analytics_outlined, color: Colors.white),
-            onPressed: _goToReportScreen,
-            tooltip: 'View Report',
-          ),
-        ],
       ),
       body: Build(
         fontSize: widget.fontSize,
